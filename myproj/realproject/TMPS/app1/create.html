@@ -1,0 +1,28 @@
+{% block content %}
+<!DOCTYPE html>
+ <html>
+ <head>
+ <style>
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+   }    
+ 
+</style>
+ </head>
+
+<center>
+    <h1 class="display-3" style="background-color:#000000;color:#FFFF99;">Create Donation</h1>
+    <br>
+    <br>
+    <form style="color: red;"   action="" method = "POST" enctype="multipart/form-data">
+        {% csrf_token %} {{form.as_p}}
+        <input type="submit" value=" Post new Donation">
+        <div class="center">
+        <a href="{% url 'viewDonation'%}" class="btn btn-danger"> viewProcesses </a>
+    </div>
+    </form>
+</center>
+{% endblock content %}

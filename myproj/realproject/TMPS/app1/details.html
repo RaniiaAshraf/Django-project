@@ -1,0 +1,44 @@
+{% include 'Header.html' %}
+ 
+{% block showcar %}
+<!DOCTYPE html>
+ <html>
+ <head>
+ <style>
+.card-body {
+ 
+  height: 10em;
+    
+    background: rgb(196, 145, 145);
+    width:15cm;
+   
+    
+  }
+  p{
+    color: blueviolet;
+  }
+ 
+ card-img-top {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+</style>
+ <br>
+ </head>
+
+<body>
+<h1 style="color:brown"> {{donation.id}} :</h1>
+<div class="card" style="width: 18rem;">
+    <img src="{{donation.image.url}}" class="card-img-top" alt="car image" />
+    <br>
+    <br>
+    <div class="card-body">
+      <p  class="card-title">Name : {{donation.Name}}</p>
+      <p class="card-title">Description : {{donation.Description}}</p>
+      <p class="card-title">Targetprice : {{donation.Targetprice}}</p>
+      <a href="{% url 'viewDonation' %}" class = "btn btn-primary" 
+      >Show All Processes</a>
+    </div>
+  </div>
+</body>
+  {% endblock showcar %}
