@@ -7,6 +7,8 @@ from django.template import RequestContext
 
 def renderhtml(request):
     return render(request, 'app1/index.html')
+def viewhtml(request):
+    return render(request, 'app1/contact.html')
 
 def viewDonation(request):
     return render(request,'app1/main.html', {"cars":Donation.objects.all()})

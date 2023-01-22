@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('',views.renderhtml),
+    path('contact/',views.viewhtml , name="contact"),
     path('Donation/' , views.viewDonation , name ="viewDonation"),
     path('createdonation/' , views.createDonation , name ="createDonation"),
     path('showdonation/<id>' , views.showDonationWithID , name ="showDonation"),
