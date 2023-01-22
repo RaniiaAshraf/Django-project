@@ -10,6 +10,12 @@ def renderhtml(request):
 def viewhtml(request):
     return render(request, 'app1/contact.html')
 
+def registerPage(request):
+    return render(request,'app1/register.html')
+
+def loginPage(request):
+    return render(request,'app1/login.html')
+
 def viewDonation(request):
     return render(request,'app1/main.html', {"cars":Donation.objects.all()})
 

@@ -9,6 +9,8 @@ urlpatterns = [
     path('showdonation/<id>' , views.showDonationWithID , name ="showDonation"),
     path('deletedonation/<id>' , views.deleteDonationWithID , name ="deleteDonation"),
     path('updatedonation/<id>' , views.updateDonationWithID , name ="updateDonation") ,
+    path('login/' , views.loginPage , name ="Login") ,
+    path('register/' , views.registerPage , name ="Register") 
      
 
 
