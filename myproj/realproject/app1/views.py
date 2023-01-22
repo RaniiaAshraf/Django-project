@@ -1,19 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from .models import Donation
 from .forms import Donationform
+from .forms import CreateUserForm
 from django.template import RequestContext
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout 
+ 
 # Create your views here.
-
 def renderhtml(request):
     return render(request, 'app1/index.html')
 def viewhtml(request):
     return render(request, 'app1/contact.html')
 
 def registerPage(request):
-    return render(request,'app1/register.html')
+    form = CreateUserForm()
+    context ={'form':form}
+    if request.method == 'POST':
+        form=CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Login')
+    return render(request,'app1/register.html',context)
+
 
 def loginPage(request):
+    if request.method == 'POST':
+        username= request.POST.get('username')
+        password= request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('viewDonation')
     return render(request,'app1/login.html')
 
 def viewDonation(request):
