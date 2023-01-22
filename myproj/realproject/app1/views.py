@@ -1,17 +1,20 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
-from .models import Donation
-from .forms import Donationform
+from .models import Donation , Funded
+from .forms import Donationform , Fund
 from .forms import CreateUserForm
 from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout 
+from django.contrib.auth.decorators import login_required
  
 # Create your views here.
 def renderhtml(request):
     return render(request, 'app1/index.html')
 def viewhtml(request):
     return render(request, 'app1/contact.html')
+def homehtml(request):
+    return render(request, 'app1/index.html')
 
 def registerPage(request):
     form = CreateUserForm()
@@ -35,11 +38,15 @@ def loginPage(request):
     return render(request,'app1/login.html')
 
 def viewDonation(request):
-    return render(request,'app1/main.html', {"cars":Donation.objects.all()})
+    return render(request,'app1/main.html', {"project":Donation.objects.all()})
 
+@login_required(login_url='login')
 def createDonation(request):
     donation = Donationform(request.POST , request.FILES)
     if donation.is_valid():
+        instance = donation.save(commit=False)
+        instance.user = request.user
+        instance.save()
         donation.save()
     else:
         print("not valid")
@@ -47,13 +54,12 @@ def createDonation(request):
 
 def showDonationWithID(request,id):
     donation=Donation.objects.get(pk=id)
-    # print(car)
     return render(request, 'app1/details.html',{"donation":donation})
 
 def deleteDonationWithID(request,id):
     donation=Donation.objects.get(pk=id)
     donation.delete()
-    return render (request, 'app1/main.html',{"cars":Donation.objects.all()})
+    return render (request, 'app1/main.html',{"project":Donation.objects.all()})
 
 def updateDonationWithID(request,id):
     donation=Donation.objects.get(pk=id)
@@ -64,4 +70,14 @@ def updateDonationWithID(request,id):
         print("not valid")
     return render(request, 'app1/update.html',{"donation":donation,"form":form}) 
 
-    
+@login_required(login_url='login')
+def showfundID(request,id):
+    project= Donation.objects.get(pk = id)
+    val=Fund(request.POST)
+    if val.is_valid():
+       instance = val.save(commit=False) 
+       project.Targetprice=project.Targetprice+int(instance.number)  
+       project.save()
+       return redirect('viewDonation')
+    project = Donation.objects.get(pk = id)
+    return render(request,'app1/funddetails.html',{"form" : val})

@@ -38,6 +38,8 @@
       <p class="card-title">Targetprice : {{donation.Targetprice}}</p>
       <a href="{% url 'viewDonation' %}" class = "btn btn-primary" 
       >Show All Processes</a>
+      <a href="{% url 'showfund' donation.id %}" class = "btn btn-primary" 
+      >Fund</a>
     </div>
   </div>
 </body>

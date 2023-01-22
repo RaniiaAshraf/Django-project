@@ -9,5 +9,8 @@ class Donation(models.Model):
     Description = models.TextField(null = True , blank= True , verbose_name="Description     ")
     def __str__(self):
         return self.Name
+
+class Funded(models.Model):
+    number = models.IntegerField()
     
     
