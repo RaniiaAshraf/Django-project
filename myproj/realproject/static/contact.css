@@ -70,16 +70,32 @@
   font-weight: 500;
   color: #00bcd4;  
  }
- .contactForm h2 {
+ .contactform h2 {
    font-size: 30px;
    color: #333;
    font-weight: 500;
  }
- .contactForm .inputBox {
+ .contactform .inputBox {
     position: relative;
     width: 100%;
-    
+    margin-top: 10px;
  }
-
-
-
+ .contactform .inputBox input,
+ .contactform .inputBox textarea 
+ { 
+   width: 100%;
+   padding: 5px 0;
+   font-size: 16px;
+   margin: 10px 0;
+   border: none;
+   border-bottom: 2px solid #333;
+   outline: none;
+   resize: none;
+ }
+ .contactform .inputBox span {
+   position: absolute;
+   left: 0;
+   padding: 5px 0;
+   font-size: 16px;
+   margin: 10px 0;
+ }

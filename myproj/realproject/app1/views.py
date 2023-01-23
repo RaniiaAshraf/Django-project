@@ -5,7 +5,7 @@ from .forms import Donationform , Fund
 from .forms import CreateUserForm
 from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout 
+from django.contrib.auth import authenticate, login  
 from django.contrib.auth.decorators import login_required
  
 # Create your views here.
@@ -44,9 +44,6 @@ def viewDonation(request):
 def createDonation(request):
     donation = Donationform(request.POST , request.FILES)
     if donation.is_valid():
-        instance = donation.save(commit=False)
-        instance.user = request.user
-        instance.save()
         donation.save()
     else:
         print("not valid")
@@ -70,7 +67,7 @@ def updateDonationWithID(request,id):
         print("not valid")
     return render(request, 'app1/update.html',{"donation":donation,"form":form}) 
 
-@login_required(login_url='login')
+
 def showfundID(request,id):
     project= Donation.objects.get(pk = id)
     val=Fund(request.POST)
